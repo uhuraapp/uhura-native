@@ -1,4 +1,4 @@
-const OPEN_CHANNEL = "OPEN_CHANNEL"
+import { OPEN_CHANNEL } from '../constants/action-types'
 
 export function openChannel(id) {
   return {

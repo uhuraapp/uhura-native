@@ -1,18 +1,24 @@
-// import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch'
+import { REQUEST_SUBSCRIPTIONS, RECEIVE_SUBSCRIPTIONS, FAILED_FETCH_SUBSCRIPTIONS  } from '../constants/action-types'
+import { checkStatus, parseJSON } from '../request'
 
-export const REQUEST_SUBSCRIPTIONS = "REQUEST_SUBSCRIPTIONS"
-function requestSubscriptions(reddit) {
+function requestSubscriptions() {
   return {
     type: REQUEST_SUBSCRIPTIONS
   }
 }
 
-export const RECEIVE_SUBSCRIPTIONS = "RECEIVE_SUBSCRIPTIONS"
 function receiveSubscriptions(json) {
   return {
     type: RECEIVE_SUBSCRIPTIONS,
     channels: json.subscriptions,
     receivedAt: Date.now()
+  }
+}
+
+function failedFetchSubcriptions(e) {
+  return {
+    type: FAILED_FETCH_SUBSCRIPTIONS
   }
 }
 
@@ -25,8 +31,9 @@ export function fetchSubscriptions() {
         'Authorization': 'Token %PUT YOU TOKEN HERE%'
       }
     })
-      .then(response => response.json())
-      .then(json => dispatch(receiveSubscriptions(json)))
-      .catch(/* TODO */)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => dispatch(receiveSubscriptions(json)))
+    .catch(e => dispatch(failedFetchSubcriptions(e)))
   }
 }
