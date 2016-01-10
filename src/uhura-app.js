@@ -2,9 +2,17 @@ import React, { Text, Component } from 'react-native'
 import { Provider } from 'react-redux/native'
 import configureStore from './store'
 
-const store = configureStore()
+const initialState = {
+  subscriptions: {
+    channels: [],
+    isFetching: false,
+    hasError: false,
+  },
+}
 
-class Root extends Component {
+const store = configureStore(initialState)
+
+class UhuraApp extends Component {
   render () {
     return (
       <Provider store={store}>
@@ -14,4 +22,4 @@ class Root extends Component {
   }
 }
 
-export default Root
+export default UhuraApp
