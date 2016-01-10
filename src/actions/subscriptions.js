@@ -36,3 +36,8 @@ export function fetchSubscriptions() {
     .catch(e => dispatch(failedFetchSubcriptions(e)))
   }
 }
+
+export function fetchSubscriptionsIfNeeded() {
+  // TODO: check if is realy necessary fetch the subscription again
+  return fetchSubscriptions()
+}
