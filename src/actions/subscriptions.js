@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import { REQUEST_SUBSCRIPTIONS, RECEIVE_SUBSCRIPTIONS, FAILED_FETCH_SUBSCRIPTIONS  } from '../constants/action-types'
 import { checkStatus, parseJSON } from '../request'
 
